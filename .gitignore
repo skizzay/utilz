@@ -30,3 +30,11 @@
 *.exe
 *.out
 *.app
+
+# Conan files
+*.pyc
+test_package/build
+build/
+
+# Editor swap files
+.*.sw?
