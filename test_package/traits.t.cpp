@@ -5,6 +5,7 @@
 #  include <catch.hpp>
 #endif
 #include <array>
+#include <chrono>
 #include <memory>
 #include <vector>
 
@@ -20,6 +21,7 @@ TEST_CASE( "is_template", "[unit][traits]" ) {
    REQUIRE( is_template_v<my_dto, dto> );
    REQUIRE_FALSE( is_template_v<int, dto> );
    REQUIRE( is_dto_v<my_dto> );
+   REQUIRE( is_template_v<std::chrono::system_clock::time_point, std::chrono::time_point> );
    REQUIRE_FALSE( is_template_v<nonesuch, dto> );
    REQUIRE_FALSE( is_template_v<nonesuch, std::variant> );
    REQUIRE_FALSE( is_template_v<nonesuch, std::tuple> );
