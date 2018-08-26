@@ -15,10 +15,10 @@ template<class> struct data_holder;
 
 template<class ...Data>
 struct data_holder<utilz::type_sequence<Data...>> : Data ... {
-   constexpr data_holder(Data &&... data) noexcept(
-         std::conjunction_v<std::is_nothrow_constructible<Data, decltype(std::forward<Data>(data))>...>
+   constexpr data_holder(Data ...data) noexcept(
+         std::conjunction_v<std::is_nothrow_move_constructible<Data>...>
        )
-       : Data{std::forward<Data>(data)}... {}
+       : Data{std::move(data)}... {}
 };
 
 template<class T> using is_data = std::negation<is_tag<T>>;
