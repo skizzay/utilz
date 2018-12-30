@@ -151,28 +151,47 @@ template<class T>
 using remove_cref_t = std::remove_const_t<std::remove_reference_t<T>>;
 
 template<class T>
+using is_reference_wrapper = is_template<T, std::reference_wrapper>;
+
+template<class T>
+inline constexpr bool is_reference_wrapper_v = is_reference_wrapper<T>::value;
+
+template<class T>
 struct strip_reference_wrapper {
    using type = T;
 
-   static constexpr T &apply(T &t) noexcept {
+   static constexpr type &apply(T &t) noexcept {
+      return t;
+   }
+
+   static constexpr type const &apply(T const &t) noexcept {
       return t;
    }
 };
 
 template<class T>
-struct strip_reference_wrapper<std::reference_wrapper<T>> : strip_reference_wrapper<T> {
-   static constexpr T &apply(std::reference_wrapper<T> t) noexcept {
+struct strip_reference_wrapper<std::reference_wrapper<T> const> {
+   using type = std::add_const_t<T>;
+
+   static constexpr type &apply(std::reference_wrapper<T> const &t) noexcept {
+      return t.get();
+   }
+};
+
+template<class T>
+struct strip_reference_wrapper<std::reference_wrapper<T>> {
+   using type = T;
+
+   static constexpr type &apply(std::reference_wrapper<T> &t) noexcept {
+      return t.get();
+   }
+
+   static constexpr std::add_const_t<type> &apply(std::reference_wrapper<T> const &t) noexcept {
       return t.get();
    }
 };
 
 template<class T>
 using strip_reference_wrapper_t = typename strip_reference_wrapper<T>::type;
-
-template<class T>
-using is_reference_wrapper = is_template<T, std::reference_wrapper>;
-
-template<class T>
-inline constexpr bool is_reference_wrapper_v = is_reference_wrapper<T>::value;
 
 }
