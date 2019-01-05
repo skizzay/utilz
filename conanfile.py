@@ -10,7 +10,7 @@ def _UtilzConan__read_contents_of_file(filename):
 
 class UtilzConan(ConanFile):
     name = "utilz"
-    version = "0.0.4"
+    version = "0.0.5"
     license = _UtilzConan__read_contents_of_file("LICENSE")
     url = "https://github.com/skizzay/utilz"
     description = _UtilzConan__read_contents_of_file("README.md")

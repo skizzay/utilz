@@ -163,10 +163,6 @@ struct strip_reference_wrapper {
    static constexpr type &apply(T &t) noexcept {
       return t;
    }
-
-   static constexpr type const &apply(T const &t) noexcept {
-      return t;
-   }
 };
 
 template<class T>
