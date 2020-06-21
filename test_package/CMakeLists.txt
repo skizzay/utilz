@@ -11,6 +11,7 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 add_executable(tests
+   dto.t.cpp
    traits.t.cpp
    type_sequence.t.cpp
    main.cpp)
